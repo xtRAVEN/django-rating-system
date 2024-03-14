@@ -1,3 +1,4 @@
+import uuid
 from random import choice
 from string import ascii_lowercase
 
@@ -34,7 +35,7 @@ class RatingSettings(models.Model):
 
 class Rating(models.Model):
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
-    object_id = models.PositiveIntegerField()
+    object_id = models.UUIDField(default=uuid.uuid4, editable=False)  # Change to UUIDField
     content_object = GenericForeignKey('content_type', 'object_id')
     urlhash = models.CharField(max_length=50, unique=True, editable=False)
     average = models.FloatField(default=0)
